@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Sneha ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff5f7 0%, #fce4ec 100%);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .card {
+            width: 85%;
+            max-width: 350px;
+            background: white;
+            padding: 35px 25px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(216, 27, 96, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 5;
+            border: 1px solid #f8bbd0;
+        }
+
+        .emoji { font-size: 4rem; margin-bottom: 10px; }
+        
+        h1 { 
+            color: #ad1457; 
+            font-size: 1.8rem; 
+            margin: 10px 0;
+        }
+
+        p { 
+            color: #777; 
+            font-size: 1.1rem; 
+            line-height: 1.5;
+            margin-bottom: 30px; 
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        #yesBtn {
+            background: linear-gradient(to right, #ff4081, #ec407a);
+            color: white;
+            box-shadow: 0 6px 20px rgba(255, 64, 129, 0.4);
+        }
+
+        #noBtn {
+            background-color: #f5f5f5;
+            color: #999;
+            z-index: 100;
+        }
+
+        .hidden { display: none; }
+
+        .pop-animation {
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <div id="askContainer">
+            <div class="emoji">🌸</div>
+            <h1>Hi Sneha!</h1>
+            <p>I wanted to ask you something that's been on my mind for a while...</p>
+            <h2 style="color: #d81b60; margin-bottom: 35px;">Will you be my girlfriend?</h2>
+            
+            <div class="btn-container">
+                <button id="yesBtn" onclick="celebrate()">Yes, I will! ❤️</button>
+                <button id="noBtn" ontouchstart="moveNo(this)" onmouseover="moveNo(this)">No</button>
+            </div>
+        </div>
+
+        <div id="successContainer" class="hidden pop-animation">
+            <div class="emoji">👩‍❤️‍👨</div>
+            <h1>Yay, Sneha! ✨</h1>
+            <p>You've made me the happiest person ever. Can't wait to start this journey with you! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        function moveNo(btn) {
+            // Calculate a safe zone so it doesn't go off screen
+            const padding = 20;
+            const maxX = window.innerWidth - btn.offsetWidth - padding;
+            const maxY = window.innerHeight - btn.offsetHeight - padding;
+            
+            const newX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const newY = Math.max(padding, Math.floor(Math.random() * maxY));
+            
+            btn.style.position = 'fixed';
+            btn.style.left = newX + 'px';
+            btn.style.top = newY + 'px';
+        }
+
+        function celebrate() {
+            document.getElementById('askContainer').classList.add('hidden');
+            document.getElementById('successContainer').classList.remove('hidden');
+            document.body.style.background = "#fce4ec";
+            
+            // Continuous heart rain
+            for(let i=0; i<50; i++) {
+                setTimeout(createHeart, i * 70);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            const icons = ['❤️', '💖', '✨', '🌸'];
+            heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.bottom = '-10vh';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            heart.style.zIndex = '1000';
+            
+            const duration = Math.random() * 2 + 3;
+            heart.style.transition = `transform ${duration}s linear, opacity ${duration}s`;
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.transform = `translateY(-115vh) rotate(${Math.random() * 360}deg)`;
+                heart.style.opacity = '0';
+            }, 50);
+
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+    </script>
+</body>
+</html>
